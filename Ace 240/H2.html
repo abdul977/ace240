@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muahib Store - SmartX Smartwatch</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTTX+…/1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* ===========================
+           General Styles
+        =========================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        h1, h2, h3, h4 {
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===========================
+           Hero Section
+        =========================== */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .smartwatch-name {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            background-color: #ff5722;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+        }
+
+        .cta-button:hover {
+            background-color: #e64a19;
+            transform: translateY(-3px);
+        }
+
+        /* ===========================
+           Mute/Unmute Button Styles
+        =========================== */
+        .mute-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            z-index: 3;
+        }
+
+        .mute-button:hover {
+            background-color: rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+        }
+
+        .mute-button i {
+            font-size: 1.2rem;
+            color: #ff5722;
+        }
+
+        /* ===========================
+           Features Section
+        =========================== */
+        .features-section {
+            padding: 60px 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+
+        .features-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #ff5722;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            position: relative;
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f06, #f79);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .feature-card p {
+            margin-bottom: 15px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        /* ===========================
+           YouTube Video Carousel within Feature Cards
+        =========================== */
+        .video-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #000;
+        }
+
+        .video-carousel iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+            display: none;
+            border-radius: 10px;
+        }
+
+        .video-carousel iframe.active {
+            display: block;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 10px;
+        }
+
+        .carousel-controls button {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-controls button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .play-button-carousel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            padding: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: pulse 2s infinite;
+            display: block;
+            z-index: 2;
+        }
+
+        .play-button-carousel:hover {
+            background-color: rgba(255, 255, 255, 1);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-button-carousel i {
+            font-size: 2rem;
+            color: #ff5722;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            70% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ===========================
+           Gallery Section
+        =========================== */
+        .gallery-section {
+            padding: 60px 20px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .gallery-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #ff5722;
+        }
+
+        .gallery-carousel {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .carousel-images {
+            display: flex;
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            flex-shrink: 0;
+            border-radius: 10px;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255,255,255,0.7);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+
+        .carousel-btn:hover {
+            background-color: rgba(255,255,255,1);
+        }
+
+        /* ===========================
+           Reviews Section
+        =========================== */
+        .reviews-section {
+            padding: 60px 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+
+        .reviews-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #ff5722;
+        }
+
+        .reviews-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review {
+            display: flex;
+            align-items: center;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .review:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .review-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+            object-fit: cover;
+            border: 2px solid #ff5722;
+        }
+
+        .review-content p {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        .review-content h4 {
+            font-weight: bold;
+            color: #ff5722;
+            font-size: 1.1rem;
+        }
+
+        .additional-reviews {
+            display: none;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .see-all-reviews {
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #2196f3;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+        }
+
+        .see-all-reviews:hover {
+            background-color: #1976d2;
+            transform: translateY(-3px);
+        }
+
+        /* ===========================
+           App Installation Section
+        =========================== */
+        .installation-section {
+            padding: 60px 20px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .installation-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ff5722;
+        }
+
+        .installation-section p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #555;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .download-app-button {
+            padding: 15px 30px;
+            background-color: #4caf50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .download-app-button:hover {
+            background-color: #388e3c;
+            transform: translateY(-3px);
+        }
+
+        /* ===========================
+           Order Form Section
+        =========================== */
+        .order-section {
+            padding: 60px 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+            position: relative;
+        }
+
+        .order-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #ff5722;
+        }
+
+        #order-form {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        #order-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        #order-form input[type="text"],
+        #order-form input[type="tel"],
+        #order-form input[type="date"],
+        #order-form select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        #order-form input[type="text"]:focus,
+        #order-form input[type="tel"]:focus,
+        #order-form input[type="date"]:focus,
+        #order-form select:focus {
+            border-color: #ff5722;
+            outline: none;
+        }
+
+        #order-form input[type="date"] {
+            display: none;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #ff5722;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+        }
+
+        .submit-button:hover {
+            background-color: #e64a19;
+            transform: translateY(-3px);
+        }
+
+        .order-section p {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #555;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===========================
+           Footer Section
+        =========================== */
+        .footer-section {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-info,
+        .footer-links,
+        .footer-social {
+            flex: 1 1 200px;
+            margin: 10px;
+        }
+
+        .footer-info h3,
+        .footer-links h4,
+        .footer-social h4 {
+            margin-bottom: 15px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: #ff5722;
+        }
+
+        .footer-social a {
+            margin-right: 15px;
+            color: #fff;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: #ff5722;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            border-top: 1px solid #555;
+            padding-top: 20px;
+        }
+
+        /* ===========================
+           Responsive Styles
+        =========================== */
+        @media (max-width: 768px) {
+            .reviews-container {
+                flex-direction: column;
+            }
+
+            .review {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .review-image {
+                margin-bottom: 15px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-info,
+            .footer-links,
+            .footer-social {
+                text-align: center;
+            }
+
+            .hero-overlay h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-overlay p {
+                font-size: 1.2rem;
+            }
+
+            .cta-button, .download-app-button, .submit-button, .see-all-reviews {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+
+            .feature-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .feature-card p {
+                font-size: 0.9rem;
+            }
+
+            .reviews-section h2, .gallery-section h2, .features-section h2, .installation-section h2, .order-section h2 {
+                font-size: 2rem;
+            }
+
+            .video-carousel iframe {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-overlay h1 {
+                font-size: 2rem;
+            }
+
+            .hero-overlay p {
+                font-size: 1rem;
+            }
+
+            .cta-button, .download-app-button, .submit-button, .see-all-reviews {
+                font-size: 0.8rem;
+                padding: 8px 16px;
+            }
+
+            .feature-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .feature-card p {
+                font-size: 0.8rem;
+            }
+
+            .reviews-section h2, .gallery-section h2, .features-section h2, .installation-section h2, .order-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .video-carousel iframe {
+                height: 200px;
+            }
+        }
+
+        /* ===========================
+           Floating Buttons
+        =========================== */
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ff5722;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-button:hover {
+            background-color: #e64a19;
+            transform: scale(1.1);
+        }
+
+        .floating-button.left {
+            left: 20px;
+        }
+
+        .floating-button.right {
+            right: 20px;
+        }
+
+        /* ===========================
+           Modal Styles (Removed)
+        =========================== */
+        /* Removed as per user request */
+
+    </style>
+</head>
+<body>
+    <!-- ===========================
+         1. Hero Section
+    =========================== -->
+    <header class="hero-section">
+        <video autoplay muted loop class="hero-video" id="hero-video">
+            <source src="https://res.cloudinary.com/dbt8rtohf/video/upload/v1732797958/eqox0llopck384uc24fv.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <button class="mute-button" id="mute-button">
+            <i class="fas fa-volume-mute"></i>
+        </button>
+        <div class="hero-overlay">
+            <h1 class="smartwatch-name">Muahib Store</h1>
+            <p class="tagline">Your Perfect Companion for a Connected Lifestyle</p>
+            <a href="#order" class="cta-button">Buy Now</a>
+        </div>
+    </header>
+
+    <!-- ===========================
+         2. Features Section
+    =========================== -->
+    <section id="features" class="features-section">
+        <h2>Discover the Features</h2>
+        <div class="features-grid">
+            <!-- Feature Card Template -->
+            <!-- Example for "Receive Notifications" -->
+            <div class="feature-card" style="background: linear-gradient(135deg, #c2f9ff, #91d2bc);">
+                <h3>Receive Notifications</h3>
+                <p>Never miss an important update with real-time notifications.</p>
+                <div class="video-carousel">
+                    <!-- YouTube Video 1 -->
+                    <iframe id="video1a" src="https://www.youtube.com/embed/uIyZdXWou1E?enablejsapi=1&rel=0" title="Receive Notifications Video 1"></iframe>
+                    <!-- YouTube Video 2 -->
+                    <iframe id="video1b" src="https://www.youtube.com/embed/-pi2AT6obio?enablejsapi=1&rel=0" title="Receive Notifications Video 2"></iframe>
+                    <!-- Play Button Overlay -->
+                    <button class="play-button-carousel active" data-video="video1a">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <!-- Carousel Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Heart Rate Monitoring -->
+            <div class="feature-card" style="background: linear-gradient(135deg, #c2ffc2, #91bc91);">
+                <h3>Heart Rate Monitoring</h3>
+                <p>Keep an eye on your heart health with continuous monitoring.</p>
+                <div class="video-carousel">
+                    <!-- YouTube Video 1 -->
+                    <iframe id="video2a" src="https://www.youtube.com/embed/uIyZdXWou1E?enablejsapi=1&rel=0" title="Heart Rate Monitoring Video 1"></iframe>
+                    <!-- YouTube Video 2 -->
+                    <iframe id="video2b" src="https://www.youtube.com/embed/-pi2AT6obio?enablejsapi=1&rel=0" title="Heart Rate Monitoring Video 2"></iframe>
+                    <!-- Play Button Overlay -->
+                    <button class="play-button-carousel active" data-video="video2a">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <!-- Carousel Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- GPS Navigation -->
+            <div class="feature-card" style="background: linear-gradient(135deg, #ffc2c2, #bc9191);">
+                <h3>GPS Navigation</h3>
+                <p>Navigate your way effortlessly with built-in GPS.</p>
+                <div class="video-carousel">
+                    <!-- YouTube Video 1 -->
+                    <iframe id="video3a" src="https://www.youtube.com/embed/uIyZdXWou1E?enablejsapi=1&rel=0" title="GPS Navigation Video 1"></iframe>
+                    <!-- YouTube Video 2 -->
+                    <iframe id="video3b" src="https://www.youtube.com/embed/-pi2AT6obio?enablejsapi=1&rel=0" title="GPS Navigation Video 2"></iframe>
+                    <!-- Play Button Overlay -->
+                    <button class="play-button-carousel active" data-video="video3a">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <!-- Carousel Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Music Control -->
+            <div class="feature-card" style="background: linear-gradient(135deg, #ffe0b3, #d2a67c);">
+                <h3>Music Control</h3>
+                <p>Manage your playlists and enjoy music directly from your wrist.</p>
+                <div class="video-carousel">
+                    <!-- YouTube Video 1 -->
+                    <iframe id="video4a" src="https://www.youtube.com/embed/uIyZdXWou1E?enablejsapi=1&rel=0" title="Music Control Video 1"></iframe>
+                    <!-- YouTube Video 2 -->
+                    <iframe id="video4b" src="https://www.youtube.com/embed/-pi2AT6obio?enablejsapi=1&rel=0" title="Music Control Video 2"></iframe>
+                    <!-- Play Button Overlay -->
+                    <button class="play-button-carousel active" data-video="video4a">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <!-- Carousel Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Water Resistant -->
+            <div class="feature-card" style="background: linear-gradient(135deg, #b3ffcc, #7cd2a6);">
+                <h3>Water Resistant</h3>
+                <p>Designed to withstand water exposure, perfect for all activities.</p>
+                <div class="video-carousel">
+                    <!-- YouTube Video 1 -->
+                    <iframe id="video5a" src="https://www.youtube.com/embed/uIyZdXWou1E?enablejsapi=1&rel=0" title="Water Resistant Video 1"></iframe>
+                    <!-- YouTube Video 2 -->
+                    <iframe id="video5b" src="https://www.youtube.com/embed/-pi2AT6obio?enablejsapi=1&rel=0" title="Water Resistant Video 2"></iframe>
+                    <!-- Play Button Overlay -->
+                    <button class="play-button-carousel active" data-video="video5a">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <!-- Carousel Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Customizable Watch Faces -->
+            <div class="feature-card" style="background: linear-gradient(135deg, #ffb3e6, #d291bc);">
+                <h3>Customizable Watch Faces</h3>
+                <p>Personalize your smartwatch with a variety of stylish watch faces.</p>
+                <div class="video-carousel">
+                    <!-- YouTube Video 1 -->
+                    <iframe id="video6a" src="https://www.youtube.com/embed/uIyZdXWou1E?enablejsapi=1&rel=0" title="Customizable Watch Faces Video 1"></iframe>
+                    <!-- YouTube Video 2 -->
+                    <iframe id="video6b" src="https://www.youtube.com/embed/-pi2AT6obio?enablejsapi=1&rel=0" title="Customizable Watch Faces Video 2"></iframe>
+                    <!-- Play Button Overlay -->
+                    <button class="play-button-carousel active" data-video="video6a">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <!-- Carousel Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Long Battery Life -->
+            <div class="feature-card" style="background: linear-gradient(135deg, #d9d9d9, #a6a6a6);">
+                <h3>Long Battery Life</h3>
+                <p>Enjoy extended usage without frequent recharging.</p>
+                <div class="video-carousel">
+                    <!-- YouTube Video 1 -->
+                    <iframe id="video7a" src="https://www.youtube.com/embed/uIyZdXWou1E?enablejsapi=1&rel=0" title="Long Battery Life Video 1"></iframe>
+                    <!-- YouTube Video 2 -->
+                    <iframe id="video7b" src="https://www.youtube.com/embed/-pi2AT6obio?enablejsapi=1&rel=0" title="Long Battery Life Video 2"></iframe>
+                    <!-- Play Button Overlay -->
+                    <button class="play-button-carousel active" data-video="video7a">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <!-- Carousel Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Sleep Tracking -->
+            <div class="feature-card" style="background: linear-gradient(135deg, #ffedcc, #d2bfa6);">
+                <h3>Sleep Tracking</h3>
+                <p>Analyze your sleep patterns to improve rest and recovery.</p>
+                <div class="video-carousel">
+                    <!-- YouTube Video 1 -->
+                    <iframe id="video8a" src="https://www.youtube.com/embed/uIyZdXWou1E?enablejsapi=1&rel=0" title="Sleep Tracking Video 1"></iframe>
+                    <!-- YouTube Video 2 -->
+                    <iframe id="video8b" src="https://www.youtube.com/embed/-pi2AT6obio?enablejsapi=1&rel=0" title="Sleep Tracking Video 2"></iframe>
+                    <!-- Play Button Overlay -->
+                    <button class="play-button-carousel active" data-video="video8a">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <!-- Carousel Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================
+         3. Gallery Section
+    =========================== -->
+    <section id="gallery" class="gallery-section">
+        <h2>Explore the Design</h2>
+        <div class="gallery-carousel">
+            <button class="carousel-btn prev-btn">&#10094;</button>
+            <div class="carousel-images">
+                <!-- 10 Images from Unsplash -->
+                <img src="https://images.unsplash.com/photo-1526045612212-70caf35c14df?q=80&w=1170&auto=format&fit=crop" alt="Smartwatch Design 1">
+                <img src="https://images.unsplash.com/photo-1587829741301-dc798b82b5d0?q=80&w=1170&auto=format&fit=crop" alt="Smartwatch Design 2">
+                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1170&auto=format&fit=crop" alt="Smartwatch Design 3">
+                <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?q=80&w=1170&auto=format&fit=crop" alt="Smartwatch Design 4">
+                <img src="https://images.unsplash.com/photo-1510563382948-7e0afaa86e7f?q=80&w=1170&auto=format&fit=crop" alt="Smartwatch Design 5">
+                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=1170&auto=format&fit=crop" alt="Smartwatch Design 6">
+                <img src="https://images.unsplash.com/photo-1531883757084-9c70770c6b7a?q=80&w=1170&auto=format&fit=crop" alt="Smartwatch Design 7">
+                <img src="https://images.unsplash.com/photo-1526045612212-70caf35c14df?q=80&w=1170&auto=format&fit=crop" alt="Smartwatch Design 8">
+                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=1170&auto=format&fit=crop" alt="Smartwatch Design 9">
+                <img src="https://images.unsplash.com/photo-1526445591180-d0a3b6b60c09?q=80&w=1170&auto=format&fit=crop" alt="Smartwatch Design 10">
+            </div>
+            <button class="carousel-btn next-btn">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- ===========================
+         4. Reviews Section
+    =========================== -->
+    <section id="reviews" class="reviews-section">
+        <h2>What Our Customers Are Saying</h2>
+        <div class="reviews-container">
+            <!-- Review 1 -->
+            <div class="review">
+                <img src="https://images.unsplash.com/photo-1532667449560-72a95c8d381b?q=80&w=100&auto=format&fit=crop" alt="Jane D." class="review-image">
+                <div class="review-content">
+                    <p>"The Muahib SmartX has transformed my fitness routine. The heart rate monitoring is incredibly accurate!"</p>
+                    <h4>Jane D.</h4>
+                </div>
+            </div>
+            <!-- Review 2 -->
+            <div class="review">
+                <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0?q=80&w=100&auto=format&fit=crop" alt="Mark T." class="review-image">
+                <div class="review-content">
+                    <p>"Perfect for my busy schedule. Receiving notifications on my wrist keeps me organized and efficient."</p>
+                    <h4>Mark T.</h4>
+                </div>
+            </div>
+            <!-- Review 3 -->
+            <div class="review">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=100&auto=format&fit=crop" alt="Lily K." class="review-image">
+                <div class="review-content">
+                    <p>"Water-resistant and durable. I love taking it swimming without any worries."</p>
+                    <h4>Lily K.</h4>
+                </div>
+            </div>
+            <!-- Additional Reviews (Initially Hidden) -->
+            <div class="additional-reviews">
+                <!-- Review 4 -->
+                <div class="review">
+                    <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=100&auto=format&fit=crop" alt="Alex B." class="review-image">
+                    <div class="review-content">
+                        <p>"The GPS navigation feature is a game-changer. I never get lost during my runs."</p>
+                        <h4>Alex B.</h4>
+                    </div>
+                </div>
+                <!-- Review 5 -->
+                <div class="review">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=100&auto=format&fit=crop" alt="Sophia M." class="review-image">
+                    <div class="review-content">
+                        <p>"Customizable watch faces allow me to match my smartwatch with any outfit. Stylish and functional!"</p>
+                        <h4>Sophia M.</h4>
+                    </div>
+                </div>
+                <!-- Review 6 -->
+                <div class="review">
+                    <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0?q=80&w=100&auto=format&fit=crop" alt="David L." class="review-image">
+                    <div class="review-content">
+                        <p>"Long battery life means I can wear it all day without worrying about recharging."</p>
+                        <h4>David L.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="see-all-reviews">See All Reviews</button>
+    </section>
+
+    <!-- ===========================
+         5. App Installation Section
+    =========================== -->
+    <section id="installation" class="installation-section">
+        <h2>Easy Setup & Connectivity</h2>
+        <p>Setting up your Muahib SmartX is simple and convenient. Connect it seamlessly with our dedicated app to start enjoying all its features.</p>
+        <!-- Embedded Hero Video in Installation Section -->
+        <div class="video-carousel" style="max-width: 800px; margin: 0 auto;">
+            <iframe id="installation-video" src="https://www.youtube.com/embed/uIyZdXWou1E?enablejsapi=1&rel=0" title="Installation Video"></iframe>
+            <!-- Play Button Overlay for Installation Video -->
+            <button class="play-button-carousel active" data-video="installation-video">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+        <!-- Updated Download App Button Link -->
+        <a href="https://play.google.com/store/apps/details?id=com.legend.HiWatchUltra.app" class="download-app-button" target="_blank">Download the App</a>
+    </section>
+
+    <!-- ===========================
+         6. Order Form Section
+    =========================== -->
+    <section id="order" class="order-section">
+        <h2>Order Your Muahib SmartX Today</h2>
+        <form id="order-form">
+            <label for="name">👤 Name:</label>
+            <input type="text" id="name" name="name" required placeholder="Your Full Name">
+
+            <label for="whatsapp">📱 WhatsApp Number:</label>
+            <input type="tel" id="whatsapp" name="whatsapp" required placeholder="+234 814 449 3361" pattern="\+?\d{10,15}">
+
+            <label for="pickup-date">📅 Pickup Date:</label>
+            <select id="pickup-date" name="pickup-date" required>
+                <option value="" disabled selected>Select a date</option>
+                <option value="Today">Today</option>
+                <option value="Tomorrow">Tomorrow</option>
+                <option value="Custom">Custom Date</option>
+            </select>
+            <input type="date" id="custom-date" name="custom-date" placeholder="Select your date">
+
+            <label for="location">📍 Delivery Location:</label>
+            <select id="location" name="location" required>
+                <option value="" disabled selected>Select your location</option>
+                <option value="Abuja">Abuja</option>
+                <option value="Outside Abuja">Outside Abuja</option>
+            </select>
+
+            <label for="delivery-option">🚚 Delivery Option:</label>
+            <select id="delivery-option" name="delivery-option" required>
+                <option value="" disabled selected>Select delivery option</option>
+                <option value="Pickup">Pickup</option>
+                <option value="Delivery">Delivery</option>
+            </select>
+
+            <label for="payment-method">💳 Payment Method:</label>
+            <select id="payment-method" name="payment-method" required>
+                <option value="" disabled selected>Select payment method</option>
+                <option value="Payment on Delivery">Payment on Delivery (Within Abuja)</option>
+                <option value="Payment Upfront">Payment Upfront (Outside Abuja)</option>
+            </select>
+
+            <h3>💰 Price: <span id="price">37,000 Naira</span></h3>
+            <p id="discount-message" style="color: green;"></p>
+
+            <button type="submit" class="submit-button">Place Order</button>
+        </form>
+        <p>After placing your order, we will contact you via WhatsApp to confirm the details.</p>
+    </section>
+
+    <!-- ===========================
+         7. Footer Section
+    =========================== -->
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Muahib Store</h3>
+                <p>Location: Abuja</p>
+                <p>WhatsApp: <a href="https://wa.me/2348144493361" target="_blank">08144493361</a></p>
+                <p>Email: <a href="mailto:info@muahibstore.com">info@muahibstore.com</a></p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#order">Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Muahib Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ===========================
+         Floating Buttons
+    =========================== -->
+    <!-- Chat with WhatsApp Button -->
+    <div class="floating-button left" id="whatsapp-chat">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+    <!-- Place Order Button -->
+    <div class="floating-button right" id="place-order-btn">
+        <i class="fas fa-shopping-cart"></i>
+    </div>
+
+    <!-- ===========================
+         JavaScript Section
+    =========================== -->
+    <script>
+        // ===========================
+        // Mute/Unmute Button Functionality
+        // ===========================
+        function initMuteButton() {
+            const muteButton = document.getElementById('mute-button');
+            const heroVideo = document.getElementById('hero-video');
+
+            muteButton.addEventListener('click', () => {
+                heroVideo.muted = !heroVideo.muted;
+                if (heroVideo.muted) {
+                    muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                } else {
+                    muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }
+            });
+        }
+
+        // ===========================
+        // YouTube Video Carousel Functionality
+        // ===========================
+
+        function initYouTubeCarousels() {
+            const carousels = document.querySelectorAll('.video-carousel');
+
+            carousels.forEach(carousel => {
+                const iframes = carousel.querySelectorAll('iframe');
+                const playButton = carousel.querySelector('.play-button-carousel');
+                const prevBtn = carousel.querySelector('.carousel-prev');
+                const nextBtn = carousel.querySelector('.carousel-next');
+                let currentIndex = 0;
+                const totalVideos = iframes.length;
+
+                // Show the first video by default
+                iframes.forEach((iframe, index) => {
+                    if(index === 0){
+                        iframe.classList.add('active');
+                    }
+                });
+
+                // Play button functionality
+                playButton.addEventListener('click', () => {
+                    playButton.style.display = 'none';
+                    iframes[currentIndex].classList.add('active');
+                    // Start playing the video by adding autoplay
+                    const iframeSrc = iframes[currentIndex].getAttribute('src');
+                    iframes[currentIndex].setAttribute('src', iframeSrc + "&autoplay=1");
+                });
+
+                // Carousel controls functionality
+                nextBtn.addEventListener('click', () => {
+                    if (currentIndex < totalVideos - 1) {
+                        iframes[currentIndex].classList.remove('active');
+                        currentIndex++;
+                        iframes[currentIndex].classList.add('active');
+                        playButton.style.display = 'block';
+                        // Pause the previous video by removing autoplay
+                        const iframeSrcPrev = iframes[currentIndex -1].getAttribute('src').split('&autoplay=1')[0];
+                        iframes[currentIndex -1].setAttribute('src', iframeSrcPrev);
+                    } else {
+                        iframes[currentIndex].classList.remove('active');
+                        currentIndex = 0;
+                        iframes[currentIndex].classList.add('active');
+                        playButton.style.display = 'block';
+                        // Pause the previous video by removing autoplay
+                        const iframeSrcPrev = iframes[totalVideos -1].getAttribute('src').split('&autoplay=1')[0];
+                        iframes[totalVideos -1].setAttribute('src', iframeSrcPrev);
+                    }
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        iframes[currentIndex].classList.remove('active');
+                        currentIndex--;
+                        iframes[currentIndex].classList.add('active');
+                        playButton.style.display = 'block';
+                        // Pause the previous video by removing autoplay
+                        const iframeSrcPrev = iframes[currentIndex +1].getAttribute('src').split('&autoplay=1')[0];
+                        iframes[currentIndex +1].setAttribute('src', iframeSrcPrev);
+                    } else {
+                        iframes[currentIndex].classList.remove('active');
+                        currentIndex = totalVideos - 1;
+                        iframes[currentIndex].classList.add('active');
+                        playButton.style.display = 'block';
+                        // Pause the previous video by removing autoplay
+                        const iframeSrcPrev = iframes[0].getAttribute('src').split('&autoplay=1')[0];
+                        iframes[0].setAttribute('src', iframeSrcPrev);
+                    }
+                });
+            });
+        }
+
+        // ===========================
+        // Gallery Carousel Functionality
+        // ===========================
+        function initGalleryCarousel() {
+            const prevBtnGallery = document.querySelector('.gallery-carousel .prev-btn');
+            const nextBtnGallery = document.querySelector('.gallery-carousel .next-btn');
+            const carouselImagesGallery = document.querySelector('.gallery-carousel .carousel-images');
+            let counterGallery = 1;
+            let sizeGallery = carouselImagesGallery.clientWidth;
+
+            // Clone first and last images for infinite loop
+            const imagesGallery = carouselImagesGallery.children;
+            const firstCloneGallery = imagesGallery[0].cloneNode(true);
+            const lastCloneGallery = imagesGallery[imagesGallery.length -1].cloneNode(true);
+
+            carouselImagesGallery.appendChild(firstCloneGallery);
+            carouselImagesGallery.insertBefore(lastCloneGallery, imagesGallery[0]);
+
+            carouselImagesGallery.style.transform = `translateX(-${sizeGallery * counterGallery}px)`;
+
+            // Update size on window resize
+            window.addEventListener('resize', () => {
+                sizeGallery = carouselImagesGallery.clientWidth;
+                carouselImagesGallery.style.transition = 'none';
+                carouselImagesGallery.style.transform = `translateX(-${sizeGallery * counterGallery}px)`;
+            });
+
+            // Button Event Listeners
+            nextBtnGallery.addEventListener('click', () => {
+                if (counterGallery >= carouselImagesGallery.children.length -1) return;
+                carouselImagesGallery.style.transition = 'transform 0.5s ease-in-out';
+                counterGallery++;
+                carouselImagesGallery.style.transform = `translateX(-${sizeGallery * counterGallery}px)`;
+            });
+
+            prevBtnGallery.addEventListener('click', () => {
+                if (counterGallery <= 0) return;
+                carouselImagesGallery.style.transition = 'transform 0.5s ease-in-out';
+                counterGallery--;
+                carouselImagesGallery.style.transform = `translateX(-${sizeGallery * counterGallery}px)`;
+            });
+
+            // Transition End Event for Infinite Loop
+            carouselImagesGallery.addEventListener('transitionend', () => {
+                if (carouselImagesGallery.children[counterGallery].isEqualNode(firstCloneGallery)) {
+                    carouselImagesGallery.style.transition = 'none';
+                    counterGallery = 1;
+                    carouselImagesGallery.style.transform = `translateX(-${sizeGallery * counterGallery}px)`;
+                }
+                if (carouselImagesGallery.children[counterGallery].isEqualNode(lastCloneGallery)) {
+                    carouselImagesGallery.style.transition = 'none';
+                    counterGallery = carouselImagesGallery.children.length - 2;
+                    carouselImagesGallery.style.transform = `translateX(-${sizeGallery * counterGallery}px)`;
+                }
+            });
+        }
+
+        // ===========================
+        // Order Form Logic
+        // ===========================
+        function initOrderFormLogic() {
+            const pickupDateSelect = document.getElementById('pickup-date');
+            const customDateInput = document.getElementById('custom-date');
+            const locationSelect = document.getElementById('location');
+            const deliveryOptionSelect = document.getElementById('delivery-option');
+            const paymentMethodSelect = document.getElementById('payment-method');
+            const orderForm = document.getElementById('order-form');
+            const priceDisplay = document.getElementById('price');
+            const discountMessage = document.getElementById('discount-message');
+
+            // Base price of the smartwatch
+            const basePrice = 37000;
+
+            // Function to check if selected date is today
+            function isToday(selectedDate) {
+                const today = new Date();
+                const selected = new Date(selectedDate);
+                return today.toDateString() === selected.toDateString();
+            }
+
+            // Function to apply discount if order is placed today
+            function applyDiscount() {
+                const today = new Date();
+                let selectedDate;
+
+                if (pickupDateSelect.value === 'Custom') {
+                    selectedDate = customDateInput.value;
+                } else if (pickupDateSelect.value === 'Today') {
+                    selectedDate = today.toISOString().split('T')[0];
+                } else {
+                    selectedDate = null;
+                }
+
+                if (selectedDate && isToday(selectedDate)) {
+                    // Apply 5% discount
+                    const discountedPrice = basePrice * 0.95;
+                    priceDisplay.textContent = discountedPrice.toLocaleString() + ' Naira';
+                    discountMessage.textContent = '🎉 5% discount applied for orders placed today!';
+                } else {
+                    // No discount
+                    priceDisplay.textContent = basePrice.toLocaleString() + ' Naira';
+                    discountMessage.textContent = '';
+                }
+            }
+
+            // Event Listener for Pickup Date Selection
+            pickupDateSelect.addEventListener('change', () => {
+                if (pickupDateSelect.value === 'Custom') {
+                    customDateInput.style.display = 'block';
+                    customDateInput.required = true;
+                } else {
+                    customDateInput.style.display = 'none';
+                    customDateInput.required = false;
+                }
+                applyDiscount();
+            });
+
+            // Event Listener for Custom Date Input
+            customDateInput.addEventListener('change', () => {
+                applyDiscount();
+            });
+
+            // Event Listener for Location Selection to set Payment Method
+            locationSelect.addEventListener('change', () => {
+                if (locationSelect.value === 'Abuja') {
+                    paymentMethodSelect.value = 'Payment on Delivery';
+                    paymentMethodSelect.disabled = true;
+                } else if (locationSelect.value === 'Outside Abuja') {
+                    paymentMethodSelect.value = 'Payment Upfront';
+                    paymentMethodSelect.disabled = true;
+                } else {
+                    paymentMethodSelect.value = '';
+                    paymentMethodSelect.disabled = false;
+                }
+                applyDiscount();
+            });
+
+            // Event Listener for Delivery Option Selection
+            deliveryOptionSelect.addEventListener('change', () => {
+                const location = locationSelect.value;
+                const deliveryOption = deliveryOptionSelect.value;
+                let deliveryFee = 0;
+
+                if (location === 'Abuja' && deliveryOption === 'Delivery') {
+                    deliveryFee = 3500; // 3,500 Naira
+                }
+
+                const currentPrice = parseFloat(priceDisplay.textContent.replace(/,/g, '').replace(' Naira', ''));
+                const finalPrice = currentPrice + deliveryFee;
+
+                priceDisplay.textContent = finalPrice.toLocaleString() + ' Naira';
+
+                if (deliveryFee > 0) {
+                    discountMessage.textContent = `🚚 A delivery fee of ${deliveryFee.toLocaleString()} Naira has been added.`;
+                } else {
+                    discountMessage.textContent = '';
+                }
+            });
+
+            // Form Submission Handling
+            orderForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value.trim();
+                const whatsapp = document.getElementById('whatsapp').value.trim();
+                let pickupDate;
+
+                if (pickupDateSelect.value === 'Custom') {
+                    pickupDate = customDateInput.value;
+                } else if (pickupDateSelect.value === 'Today') {
+                    const today = new Date();
+                    pickupDate = today.toISOString().split('T')[0];
+                } else if (pickupDateSelect.value === 'Tomorrow') {
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    pickupDate = tomorrow.toISOString().split('T')[0];
+                }
+
+                const location = locationSelect.value;
+                const deliveryOption = deliveryOptionSelect.value;
+                const paymentMethod = paymentMethodSelect.value;
+                const priceText = priceDisplay.textContent.replace(/,/g, '').replace(' Naira', '');
+                const price = parseFloat(priceText);
+
+                // Generate Unique Order Number
+                const orderNumber = 'ORD' + Date.now();
+
+                // Construct WhatsApp Message
+                let message = `Hello, I would like to order the Muahib SmartX.%0A`;
+                message += `👤 Name: ${encodeURIComponent(name)}%0A`;
+                message += `📱 WhatsApp Number: ${encodeURIComponent(whatsapp)}%0A`;
+                message += `📅 Pickup Date: ${encodeURIComponent(pickupDate)}%0A`;
+                message += `📍 Delivery Location: ${encodeURIComponent(location)}%0A`;
+                message += `🚚 Delivery Option: ${encodeURIComponent(deliveryOption)}%0A`;
+                message += `💳 Payment Method: ${encodeURIComponent(paymentMethod)}%0A`;
+                message += `💰 Price: ${encodeURIComponent(price)} Naira%0A`;
+                message += `🔢 Order Number: ${encodeURIComponent(orderNumber)}`;
+
+                // WhatsApp URL
+                const whatsappURL = `https://wa.me/2348144493361?text=${message}`;
+
+                // Open WhatsApp in a new tab
+                window.open(whatsappURL, '_blank');
+            });
+        }
+
+        // ===========================
+        // Reviews "See All Reviews" Functionality
+        // ===========================
+        function initReviewsFunctionality() {
+            const seeAllReviewsBtn = document.querySelector('.see-all-reviews');
+            const additionalReviews = document.querySelector('.additional-reviews');
+
+            seeAllReviewsBtn.addEventListener('click', () => {
+                if (additionalReviews.style.display === 'none' || additionalReviews.style.display === '') {
+                    additionalReviews.style.display = 'flex';
+                    seeAllReviewsBtn.textContent = 'Hide Reviews';
+                } else {
+                    additionalReviews.style.display = 'none';
+                    seeAllReviewsBtn.textContent = 'See All Reviews';
+                }
+            });
+        }
+
+        // ===========================
+        // Floating Buttons Functionality
+        // ===========================
+        function initFloatingButtons() {
+            // Chat with WhatsApp Button
+            const whatsappChatBtn = document.getElementById('whatsapp-chat');
+            whatsappChatBtn.addEventListener('click', () => {
+                const templateMessage = encodeURIComponent("I'm interested in the Series 9 Smartwatch. I want to know more about its features and pricing.");
+                const whatsappURL = `https://wa.me/2348144493361?text=${templateMessage}`;
+                window.open(whatsappURL, '_blank');
+            });
+
+            // Place Order Floating Button
+            const placeOrderBtn = document.getElementById('place-order-btn');
+            placeOrderBtn.addEventListener('click', () => {
+                document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // ===========================
+        // Initialize All Functionalities on DOMContentLoaded
+        // ===========================
+        document.addEventListener('DOMContentLoaded', () => {
+            initMuteButton();
+            initYouTubeCarousels();
+            initGalleryCarousel();
+            initOrderFormLogic();
+            initReviewsFunctionality();
+            initFloatingButtons();
+        });
+    </script>
+</body>
+</html>
